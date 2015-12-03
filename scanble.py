@@ -2,7 +2,7 @@
 # requests.post("http://server:1337/beacons/touch", data=data_payload)
 import sys
 import queue
-from ..ibeacon_scanner import blescan
+import blescan
 import bluetooth._bluetooth as bluez
 
 
@@ -25,7 +25,7 @@ def start_scanner():
 def scan_loop(sock):
     while True:
         returned_list = blescan.parse_events(sock, 10)
-        print("----------")
+        print("scanning")
         for beacon in returned_list:
             queue.queue_beacon(beacon)
             # print(beacon)

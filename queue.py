@@ -35,7 +35,7 @@ def remove_key(key):
         if item == key:
             pass
         else:
-            output.append(item)
+            output.append(item + '\n')
 
     with open(SCANNED_DATA_FILENAME, 'wt') as write_handle:
         write_handle.writelines(output)
