@@ -10,8 +10,10 @@ def read_list():
             read_buffer = read_handle.readlines()
 
         output = []
-        for item in read_buffer:
-            output.append(item.replace('\n', ''))
+
+        if read_buffer != None:
+            for item in read_buffer:
+                output.append(item.replace('\n', ''))
         return output
     return []
 
