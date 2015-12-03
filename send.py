@@ -45,6 +45,5 @@ def send_keys():
 
         queue.remove_key(send_key)
 
+while True:
     send_keys()
-
-send_keys()
