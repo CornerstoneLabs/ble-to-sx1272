@@ -176,5 +176,22 @@ class RemoveItem(unittest.TestCase):
         self.assertEqual(new_assert2, False)
 
 
+class TestJunk(unittest.TestCase):
+    def test(self):
+        queue.SCANNED_DATA_FILENAME = './junk.test'
+		
+		#
+        # check the key exists
+        #
+        buffer = queue.read_list()
+        key = '8deefbb9f7384297804096668bb44281_5000_3221'
+        new_assert = queue.key_exists(key, buffer)
+        self.assertEqual(new_assert, True)
+        for item in buffer:
+            print(item)
+
+        queue.SCANNED_DATA_FILENAME = TEST_FILE_NAME
+
+
 if __name__ == '__main__':
     unittest.main()

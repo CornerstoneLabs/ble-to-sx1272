@@ -41,9 +41,16 @@ def send_keys():
     if len(items) > 0:
         send_key = items[0]
 
-        send(1, send_key)
+        try:
+            send(1, send_key)
+        except Exception, ex:
+            send(1, "Invalid key. %s" % ex)
 
         queue.remove_key(send_key)
 
-while True:
-    send_keys()
+
+if __name__ == "__main__":
+    send(1, "Starting send process")
+
+    while True:
+        send_keys()
