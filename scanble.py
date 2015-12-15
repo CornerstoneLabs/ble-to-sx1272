@@ -5,6 +5,7 @@ import queue
 import send
 import blescan
 import bluetooth._bluetooth as bluez
+import keepalive
 
 
 def start_scanner():
@@ -29,23 +30,15 @@ def scan_loop(sock):
         print("scanning")
         for beacon in returned_list:
             queue.queue_beacon(beacon)
-            # print(beacon)
-            # try:
-            #     data_payload = {
-            #         "mac": beacon.split(',')[0],
-            #         "raw": beacon,
-            #         "source": SCANNER_ID
-            #     }
-            #     print(queue.create_key(beacon))
-            #     print(data_payload)
 
-            # except Exception, ex:
-            #     print ('error')
-            #     print ex
+        if keepalive.check_keepalive():
+            send.send(1, "Keepalive")
 
 
 if __name__ == "__main__":
     send.send(1, "Starting BLE watcher")
+
+    keepalive.initialise()
 
     sock = start_scanner()
     scan_loop(sock)

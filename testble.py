@@ -179,8 +179,8 @@ class RemoveItem(unittest.TestCase):
 class TestJunk(unittest.TestCase):
     def test(self):
         queue.SCANNED_DATA_FILENAME = './junk.test'
-		
-		#
+
+        #
         # check the key exists
         #
         buffer = queue.read_list()
