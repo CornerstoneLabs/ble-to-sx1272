@@ -38,7 +38,7 @@ def scan_loop(sock):
         keepalive_message = keepalive.check_keepalive()
 
         if keepalive_message is not None:
-            send.send(1, keepalive_message)
+            send.send(1, "KA:%s", keepalive_message)
 
 
 if __name__ == "__main__":
