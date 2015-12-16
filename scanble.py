@@ -6,7 +6,7 @@ import send
 import blescan
 import bluetooth._bluetooth as bluez
 import keepalive
-
+import diagnostics
 
 def start_scanner():
     dev_id = 0
@@ -37,6 +37,9 @@ def scan_loop(sock):
 
 if __name__ == "__main__":
     send.send(1, "Starting BLE watcher")
+
+    device, size, used, available, percent, mountpoint = diagnostics.disk_space()
+    send.send(1, "m:%s a:%s s:%s p:%s" % (mountpoint, available, size, percent))
 
     keepalive.initialise()
 
