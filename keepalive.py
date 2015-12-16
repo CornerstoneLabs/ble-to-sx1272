@@ -20,10 +20,16 @@ def time_difference():
     return delta.seconds
 
 
+def format_datetime(input):
+    datetime_string = "%s" % input
+
+    return(datetime_string.split(".")[0])
+
+
 def check_keepalive():
     if time_difference() > MAX_SECONDS:
         set_last_run()
 
-        return("%s" % datetime.datetime.now())
+        return(format_datetime(datetime.datetime.now()))
     else:
         return None

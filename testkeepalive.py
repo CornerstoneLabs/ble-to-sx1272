@@ -7,7 +7,7 @@ class SetDate(unittest.TestCase):
     def test(self):
         keepalive.initialise()
 
-        self.assertIsNotNone(keepalive.last_run)
+        self.assertIsNotNone(keepalive.LAST_RUN)
 
 
 class CheckDifference(unittest.TestCase):
@@ -16,7 +16,7 @@ class CheckDifference(unittest.TestCase):
 
         delta = datetime.timedelta(seconds=10)
 
-        keepalive.last_run = datetime.datetime.now() - delta
+        keepalive.LAST_RUN = datetime.datetime.now() - delta
 
         difference = keepalive.time_difference()
 
@@ -29,11 +29,11 @@ class CheckTriggerDoesNotTrigger(unittest.TestCase):
 
         delta = datetime.timedelta(seconds=59)
 
-        keepalive.last_run = datetime.datetime.now() - delta
+        keepalive.LAST_RUN = datetime.datetime.now() - delta
 
         result = keepalive.check_keepalive()
 
-        self.assertEqual(result, False)
+        self.assertEqual(result, None)
 
 
 class CheckTrigger(unittest.TestCase):
@@ -42,11 +42,11 @@ class CheckTrigger(unittest.TestCase):
 
         delta = datetime.timedelta(seconds=61)
 
-        keepalive.last_run = datetime.datetime.now() - delta
+        keepalive.LAST_RUN = datetime.datetime.now() - delta
 
         result = keepalive.check_keepalive()
 
-        self.assertEqual(result, True)
+        self.assertEqual(result, "%s" % keepalive.format_datetime(datetime.datetime.now()))
 
 
 class CheckTriggerResets(unittest.TestCase):
@@ -55,15 +55,15 @@ class CheckTriggerResets(unittest.TestCase):
 
         delta = datetime.timedelta(seconds=61)
 
-        keepalive.last_run = datetime.datetime.now() - delta
+        keepalive.LAST_RUN = datetime.datetime.now() - delta
 
         result = keepalive.check_keepalive()
 
-        self.assertEqual(result, True)
+        self.assertEqual(result, "%s" % keepalive.format_datetime(datetime.datetime.now()))
 
         result_2 = keepalive.check_keepalive()
 
-        self.assertEqual(result_2, False)
+        self.assertEqual(result_2, None)
 
 
 if __name__ == '__main__':
