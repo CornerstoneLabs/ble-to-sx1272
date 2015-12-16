@@ -27,9 +27,12 @@ def start_scanner():
 def scan_loop(sock):
     while True:
         returned_list = blescan.parse_events(sock, 10)
-        print("scanning")
-        for beacon in returned_list:
-            queue.queue_beacon(beacon)
+
+        if len(returned_list) > 0:
+            keepalive.set_last_run()
+
+            for beacon in returned_list:
+                queue.queue_beacon(beacon)
 
         if keepalive.check_keepalive():
             send.send(1, "Keepalive")
