@@ -45,7 +45,5 @@ def scan_loop(sock):
 
 
 if __name__ == "__main__":
-    send.send(1, "Starting BLE watcher")
-
     sock = start_scanner()
     scan_loop(sock)
