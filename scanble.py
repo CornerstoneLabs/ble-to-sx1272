@@ -36,7 +36,8 @@ def scan_loop(sock):
                 queue.queue_beacon(beacon)
 
         keepalive_message = keepalive.check_keepalive()
-        if keepalive_message:
+
+        if keepalive_message is not None:
             send.send(1, keepalive_message)
 
 
