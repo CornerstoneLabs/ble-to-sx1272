@@ -1,11 +1,12 @@
 import datetime
 
 MAX_SECONDS = 60
+LAST_RUN = None
 
 
 def set_last_run():
-    global last_run
-    last_run = datetime.datetime.now()
+    global LAST_RUN
+    LAST_RUN = datetime.datetime.now()
 
 
 def initialise():
@@ -13,8 +14,8 @@ def initialise():
 
 
 def time_difference():
-    global last_run
-    delta = datetime.datetime.now() - last_run
+    global LAST_RUN
+    delta = datetime.datetime.now() - LAST_RUN
 
     return delta.seconds
 
@@ -23,6 +24,6 @@ def check_keepalive():
     if time_difference() > MAX_SECONDS:
         set_last_run()
 
-        return True
+        return("%s" % datetime.datetime.now())
     else:
-        return False
+        return None

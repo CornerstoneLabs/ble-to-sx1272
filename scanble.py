@@ -8,6 +8,7 @@ import bluetooth._bluetooth as bluez
 import keepalive
 import diagnostics
 
+
 def start_scanner():
     dev_id = 0
     try:
@@ -34,8 +35,9 @@ def scan_loop(sock):
             for beacon in returned_list:
                 queue.queue_beacon(beacon)
 
-        if keepalive.check_keepalive():
-            send.send(1, "Keepalive")
+        keepalive_message = keepalive.check_keepalive()
+        if keepalive_message:
+            send.send(1, keepalive_message)
 
 
 if __name__ == "__main__":
