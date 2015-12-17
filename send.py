@@ -3,6 +3,11 @@ import subprocess
 import queue
 from subprocess import Popen
 
+def log(message):
+    handle = open('boop.log', 'at')
+    handle.write('%s\n' % message);
+    handle.close()
+
 
 def format_message(message):
     message = ('"%s"' % message)
@@ -21,7 +26,7 @@ def send(address, message):
         command_string,
         shell=True, stdout=subprocess.PIPE
     ).stdout.read()
-    print(return_buffer)
+    log(return_buffer)
 
 
 def time_sends():
