@@ -11,3 +11,7 @@ sudo apt-get install -y libdbus-glib-1-dev
 sudo apt-get install -y readline-dev
 
 ./install-bluez.sh
+./install-crontab.sh
+
+sudo reboot
+
