@@ -17,5 +17,5 @@ process_time = data[3]
 minutes = int(process_time.split(':')[0])
 
 if minutes > 5:
-	Popen("sudo kill -9 " + process_id, shell=True, stdout=subprocess.PIPE).stdout.read()
+    Popen("sudo kill -9 " + process_id, shell=True, stdout=subprocess.PIPE).stdout.read()
 
