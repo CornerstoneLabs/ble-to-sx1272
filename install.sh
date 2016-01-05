@@ -9,6 +9,8 @@ sudo apt-get install -y libical-dev
 sudo apt-get install -y libreadline-dev
 sudo apt-get install -y libdbus-glib-1-dev
 sudo apt-get install -y readline-dev
+sudo apt-get install -y python-setuptools
+sudo easy_install pip
 
 ./install-bluez.sh
 ./install-crontab.sh

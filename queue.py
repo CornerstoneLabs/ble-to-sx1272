@@ -1,4 +1,5 @@
 import os
+import json
 
 SCANNED_DATA_FILENAME = 'scanned_numbers.txt'
 SCANNER_ID = '9d3c2169-3be5-4ae6-9be9-2bc2cbd49ccb'
@@ -20,7 +21,8 @@ def read_list():
 
 def key_exists(key, list):
     for item in list:
-        if item == key:
+        check_item = item.split('|')[0]
+        if check_item == key:
             return True
     return False
 
@@ -34,7 +36,8 @@ def remove_key(key):
     read_buffer = read_list()
     output = []
     for item in read_buffer:
-        if item == key:
+        check_item = item.split('|')[0]
+        if check_item == key:
             pass
         else:
             output.append(item + '\n')
@@ -49,11 +52,32 @@ def create_key(item):
     return key
 
 
-def queue_beacon(item):
-    key = create_key(item)
+def is_in_whitelist(item):
+    whitelist = [
+        '08B209B5-AFEF-4C87-A070-26DDE5F96091'
+    ]
 
-    buffer = read_list()
-    if key_exists(key, buffer):
-        pass
-    else:
-        add_key(key)
+    data = item.split(',')
+    return True # data[1] in whitelist
+
+
+def get_location():
+    if os.path.exists('gps.txt'):
+        with open('gps.txt', 'rt') as read_handle:
+            gps_data = read_handle.read()
+        parsed_gps_data = json.loads(gps_data)
+        return '|lat:%s,lng:%s,t:%s' % (parsed_gps_data['latitude'], parsed_gps_data['longitude'], parsed_gps_data['t'])
+    return '|NO_LOCATION'
+
+
+def queue_beacon(item):
+    print(item)
+    if is_in_whitelist(item):
+        key = create_key(item)
+
+        buffer = read_list()
+        if key_exists(key, buffer):
+            pass
+        else:
+            data = get_location()
+            add_key(key + data)
