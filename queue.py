@@ -1,9 +1,9 @@
 import os
 import json
+from application import whitelist
 
 SCANNED_DATA_FILENAME = 'scanned_numbers.txt'
 SCANNER_ID = '9d3c2169-3be5-4ae6-9be9-2bc2cbd49ccb'
-
 
 def read_list():
     if os.path.exists(SCANNED_DATA_FILENAME):
@@ -53,12 +53,8 @@ def create_key(item):
 
 
 def is_in_whitelist(item):
-    whitelist = [
-        '08B209B5-AFEF-4C87-A070-26DDE5F96091'
-    ]
-
     data = item.split(',')
-    return True # data[1] in whitelist
+    return data[1] in whitelist
 
 
 def get_location():
