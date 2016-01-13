@@ -21,7 +21,7 @@ def generate_command(address, message):
 def send(address, message):
     message = format_message(message)
     command_string = generate_command(address, message)
-    print command_string
+    print(command_string)
     return_buffer = Popen(
         command_string,
         shell=True, stdout=subprocess.PIPE
